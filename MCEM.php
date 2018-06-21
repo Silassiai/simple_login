@@ -42,7 +42,7 @@ class MCEM {
 
 		if(isset(self::$request['logout'])){
 		    self::sessionDestroy(true);
-        }
+        	}
 
 		if ( isset( self::$request['username'] ) && isset( self::$request['password'] ) ) {
 			if ( self::$request['username'] == self::USERNAME && self::$request['password'] == self::PASSWORD) {
@@ -58,7 +58,7 @@ class MCEM {
 	}
 
 	/**
-     * showLogin
+     	 * showLogin
 	 * Show login page
 	 */
 	final private static function showLogin() {
@@ -218,7 +218,7 @@ class MCEM {
 
 	/**
 	 * initRequest
-     * asign the $_POST variable to our request var
+     	 * asign the $_POST variable to our request var
 	 */
 	final private static function initRequest() {
 		if ( isset( $_POST ) && count( $_POST ) > 0 ) {
@@ -227,7 +227,7 @@ class MCEM {
 	}
 
 	/**
-     * sessionGet
+     	 * sessionGet
 	 * @param string $key
 	 * @param null $default
 	 *
@@ -245,7 +245,7 @@ class MCEM {
 	}
 
 	/**
-     * sessionSet
+     	 * sessionSet
 	 * @param $key
 	 * @param $value
 	 */
@@ -254,7 +254,7 @@ class MCEM {
 	}
 
 	/**
-     * sessionDestroy
+     	 * sessionDestroy
 	 * @param bool $redirect
 	 */
 	final static public function sessionDestroy($redirect = false) {
@@ -266,21 +266,21 @@ class MCEM {
 
 		if($redirect){
 		    header('Location: ' . str_replace( 'index.php', '', $_SERVER['PHP_SELF'] )); exit;
-        }
+        	}
 	}
 
 	/**
 	 * showLogout
-     * add login on top of the screen
+     	 * add login on top of the screen
 	 */
 	final public static function showLogout() {
 		;?>
-        <form method="post" action="<?php echo str_replace( 'index.php', '', $_SERVER['PHP_SELF'] ); ?>">
-            <input type="hidden" name="logout">
-            <input type="submit" value="Log uit">
-            </div> <!-- End Box -->
-        </form>
-        <?php
+		<form method="post" action="<?php echo str_replace( 'index.php', '', $_SERVER['PHP_SELF'] ); ?>">
+		    <input type="hidden" name="logout">
+		    <input type="submit" value="Log uit">
+		    </div> <!-- End Box -->
+		</form>
+        	<?php
 	}
 
 }
