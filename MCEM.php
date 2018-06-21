@@ -1,13 +1,13 @@
 <?php
-
 /**
  * Class MCEM
  * Just a simple login class
  * Add this file on top of your file where you need the login auth
  */
 class MCEM {
-	CONST USERNAME = 'test@example.com';
-	CONST PASSWORD = '123456';
+    CONST USERNAME = 'test@example.com';
+    CONST PASSWORD = '123456';
+    CONST COMPANY_LOGO = 'url_to_companylogo.png';
 
 	static private $sessRef = false;
 
@@ -40,12 +40,12 @@ class MCEM {
 		self::createSessionReference();
 		self::initRequest();
 
-		if ( isset( self::$request['logout'] ) ) {
-			self::sessionDestroy( true );
-		}
+		if(isset(self::$request['logout'])){
+		    self::sessionDestroy(true);
+        }
 
 		if ( isset( self::$request['username'] ) && isset( self::$request['password'] ) ) {
-			if ( self::$request['username'] == self::USERNAME && self::$request['password'] == self::PASSWORD ) {
+			if ( self::$request['username'] == self::USERNAME && self::$request['password'] == self::PASSWORD) {
 				self::$sessRef['user'] = self::$request['username'];
 			}
 		}
@@ -58,7 +58,7 @@ class MCEM {
 	}
 
 	/**
-	 * showLogin
+     * showLogin
 	 * Show login page
 	 */
 	final private static function showLogin() {
@@ -70,7 +70,7 @@ class MCEM {
             <style>
                 body {
                     font-family: 'Open Sans', sans-serif;
-                    background: #3498db;
+                    background: #f8f8f8;
                     margin: 0 auto 0 auto;
                     width: 100%;
                     text-align: center;
@@ -94,7 +94,7 @@ class MCEM {
                     border-radius: 6px;
                     margin: 0 auto 0 auto;
                     padding: 0px 0px 70px 0px;
-                    border: #2980b9 4px solid;
+                    border: #e8e8e8 4px solid;
                 }
 
                 .email {
@@ -119,22 +119,21 @@ class MCEM {
                 }
 
                 .btn {
-                    background: #2ecc71;
-                    padding-top: 5px;
-                    padding-bottom: 5px;
+                    background: #e96624;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
                     color: white;
                     border-radius: 4px;
-                    border: #27ae60 1px solid;
                     margin-top: 20px;
                     margin-bottom: 20px;
                     margin-left: 25px;
                     margin-right: 25px;
                     font-weight: 800;
-                    font-size: 0.8em;
+                    font-size: 1.0em;
                 }
 
                 .btn:hover {
-                    background: #2CC06B;
+                    background: #000000;
                 }
 
                 #btn2 {
@@ -157,12 +156,20 @@ class MCEM {
                 #btn2:hover {
                     background: #3594D2;
                 }
+
+                .company-logo{
+                    margin: 20px;
+                }
+
+                a {
+                    text-decoration:none;
+                }
             </style>
         </head>
         <body>
         <form method="post" action="<?php echo str_replace( 'index.php', '', $_SERVER['PHP_SELF'] ); ?>">
             <div class="box">
-                <h1>MailCamp<br/>Configurator</h1>
+                <img src="<?php echo MCEM::COMPANY_LOGO ;?>" class="company-logo">
 
                 <input type="text" name="username" placeholder="gebruiker" onFocus="field_focus(this, 'email');"
                        onblur="field_blur(this, 'email');" class="email"/>
@@ -211,7 +218,7 @@ class MCEM {
 
 	/**
 	 * initRequest
-	 * asign the $_POST variable to our request var
+     * asign the $_POST variable to our request var
 	 */
 	final private static function initRequest() {
 		if ( isset( $_POST ) && count( $_POST ) > 0 ) {
@@ -220,8 +227,7 @@ class MCEM {
 	}
 
 	/**
-	 * sessionGet
-	 *
+     * sessionGet
 	 * @param string $key
 	 * @param null $default
 	 *
@@ -239,8 +245,7 @@ class MCEM {
 	}
 
 	/**
-	 * sessionSet
-	 *
+     * sessionSet
 	 * @param $key
 	 * @param $value
 	 */
@@ -249,35 +254,33 @@ class MCEM {
 	}
 
 	/**
-	 * sessionDestroy
-	 *
+     * sessionDestroy
 	 * @param bool $redirect
 	 */
-	final static public function sessionDestroy( $redirect = false ) {
+	final static public function sessionDestroy($redirect = false) {
 		self::$sessRef = [];
 
 		if ( session_id() ) {
 			@session_destroy();
 		}
 
-		if ( $redirect ) {
-			header( 'Location: ' . str_replace( 'index.php', '', $_SERVER['PHP_SELF'] ) );
-			exit;
-		}
+		if($redirect){
+		    header('Location: ' . str_replace( 'index.php', '', $_SERVER['PHP_SELF'] )); exit;
+        }
 	}
 
 	/**
 	 * showLogout
-	 * add login on top of the screen
+     * add login on top of the screen
 	 */
 	final public static function showLogout() {
-		; ?>
+		;?>
         <form method="post" action="<?php echo str_replace( 'index.php', '', $_SERVER['PHP_SELF'] ); ?>">
             <input type="hidden" name="logout">
             <input type="submit" value="Log uit">
             </div> <!-- End Box -->
         </form>
-		<?php
+        <?php
 	}
 
 }
