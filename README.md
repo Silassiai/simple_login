@@ -6,3 +6,5 @@
 <?php
 require_once __DIR__ . '/MCEM.php';
 ```
+
+You can change the script and compare the user details from your database
