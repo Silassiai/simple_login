@@ -6,8 +6,8 @@
  * Add this file on top of your file where you need the login auth
  */
 class MCEM {
-	CONST USERNAME = 'tim@6deals.nl';
-	CONST PASSWORD = '5f8104';
+	CONST USERNAME = 'test@example.com';
+	CONST PASSWORD = '123456';
 
 	static private $sessRef = false;
 
