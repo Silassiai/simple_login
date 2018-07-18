@@ -93,7 +93,7 @@ class MCEM {
                     background: white;
                     width: 300px;
                     border-radius: 6px;
-                    margin: 0 auto 0 auto;
+                    margin: 150 auto 0 auto;
                     padding: 0px 0px 70px 0px;
                     border: #e8e8e8 4px solid;
                 }
