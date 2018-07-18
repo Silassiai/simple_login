@@ -8,6 +8,7 @@ class MCEM {
     CONST USERNAME = 'test@example.com';
     CONST PASSWORD = '123456';
     CONST COMPANY_LOGO = 'url_to_companylogo.png';
+    CONST BTN_COLOR = '#337ab7';
 
 	static private $sessRef = false;
 
@@ -119,7 +120,7 @@ class MCEM {
                 }
 
                 .btn {
-                    background: #e96624;
+                    background: <?php echo MCEM::BTN_COLOR; ?>;
                     padding-top: 10px;
                     padding-bottom: 10px;
                     color: white;
