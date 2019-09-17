@@ -10,60 +10,60 @@ class MCEM {
     CONST COMPANY_LOGO = 'url_to_companylogo.png';
     CONST BTN_COLOR = '#337ab7';
 
-	static private $sessRef = false;
+    static private $sessRef = false;
 
-	static private $request = [];
+    static private $request = [];
 
-	final private function __construct() {
+    final private function __construct() {
 
-	}
+    }
 
-	/**
-	 * createSessionReference
-	 * refer sessionref to PHP $_SESSION global
-	 */
-	final private static function createSessionReference() {
-		@session_start();
-		// Create session reference
-		if ( isset( $_SESSION ) ) {
-			self::$sessRef = &$_SESSION;
-		} else {
-			self::$sessRef = [];
-		}
-	}
+    /**
+     * createSessionReference
+     * refer sessionref to PHP $_SESSION global
+     */
+    final private static function createSessionReference() {
+        @session_start();
+        // Create session reference
+        if ( isset( $_SESSION ) ) {
+            self::$sessRef = &$_SESSION;
+        } else {
+            self::$sessRef = [];
+        }
+    }
 
-	/**
-	 * check
-	 * start session
-	 * check if user has logged in, show login screen if not logged in
-	 */
-	final public static function check() {
-		self::createSessionReference();
-		self::initRequest();
+    /**
+     * check
+     * start session
+     * check if user has logged in, show login screen if not logged in
+     */
+    final public static function check() {
+        self::createSessionReference();
+        self::initRequest();
 
-		if(isset(self::$request['logout'])){
-		    self::sessionDestroy(true);
-        	}
+        if(isset(self::$request['logout'])){
+            self::sessionDestroy(true);
+        }
 
-		if ( isset( self::$request['username'] ) && isset( self::$request['password'] ) ) {
-			if ( self::$request['username'] == self::USERNAME && self::$request['password'] == self::PASSWORD) {
-				self::$sessRef['user'] = self::$request['username'];
-			}
-		}
+        if ( isset( self::$request['username'] ) && isset( self::$request['password'] ) ) {
+            if ( self::$request['username'] == self::USERNAME && self::$request['password'] == self::PASSWORD) {
+                self::$sessRef['user'] = self::$request['username'];
+            }
+        }
 
-		if ( ! isset( self::$sessRef['user'] ) ) {
-			self::showLogin();
-		}
+        if ( ! isset( self::$sessRef['user'] ) || empty(self::$sessRef['user'])) {
+            self::showLogin();
+        }
 
-		self::showLogout();
-	}
+        self::showLogout();
+    }
 
-	/**
-     	 * showLogin
-	 * Show login page
-	 */
-	final private static function showLogin() {
-		; ?>
+    /**
+     * showLogin
+     * Show login page
+     */
+    final private static function showLogin() {
+        ; ?>
         <html>
         <head>
             <link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
@@ -213,76 +213,76 @@ class MCEM {
         </script>
         </body>
         </html>
-		<?php
-		exit;
-	}
+        <?php
+        exit;
+    }
 
-	/**
-	 * initRequest
-     	 * asign the $_POST variable to our request var
-	 */
-	final private static function initRequest() {
-		if ( isset( $_POST ) && count( $_POST ) > 0 ) {
-			self::$request = $_POST;
-		}
-	}
+    /**
+     * initRequest
+     * asign the $_POST variable to our request var
+     */
+    final private static function initRequest() {
+        if ( isset( $_POST ) && count( $_POST ) > 0 ) {
+            self::$request = $_POST;
+        }
+    }
 
-	/**
-     	 * sessionGet
-	 * @param string $key
-	 * @param null $default
-	 *
-	 * @return bool|null
-	 */
-	final public static function sessionGet( $key = '', $default = null ) {
-		if ( $key === '' ) {
-			return self::$sessRef;
-		}
-		if ( ! isset( self::$sessRef[ $key ] ) ) {
-			return $default;
-		}
+    /**
+     * sessionGet
+     * @param string $key
+     * @param null $default
+     *
+     * @return bool|null
+     */
+    final public static function sessionGet( $key = '', $default = null ) {
+        if ( $key === '' ) {
+            return self::$sessRef;
+        }
+        if ( ! isset( self::$sessRef[ $key ] ) ) {
+            return $default;
+        }
 
-		return self::$sessRef[ $key ];
-	}
+        return self::$sessRef[ $key ];
+    }
 
-	/**
-     	 * sessionSet
-	 * @param $key
-	 * @param $value
-	 */
-	final public static function sessionSet( $key, $value ) {
-		self::$sessRef[ $key ] = $value;
-	}
+    /**
+     * sessionSet
+     * @param $key
+     * @param $value
+     */
+    final public static function sessionSet( $key, $value ) {
+        self::$sessRef[ $key ] = $value;
+    }
 
-	/**
-     	 * sessionDestroy
-	 * @param bool $redirect
-	 */
-	final static public function sessionDestroy($redirect = false) {
-		self::$sessRef = [];
+    /**
+     * sessionDestroy
+     * @param bool $redirect
+     */
+    final static public function sessionDestroy($redirect = false) {
+        self::$sessRef = [];
 
-		if ( session_id() ) {
-			@session_destroy();
-		}
+        if ( session_id() ) {
+            @session_destroy();
+        }
 
-		if($redirect){
-		    header('Location: ' . str_replace( 'index.php', '', $_SERVER['PHP_SELF'] )); exit;
-        	}
-	}
+        if($redirect){
+            header('Location: ' . str_replace( 'index.php', '', $_SERVER['PHP_SELF'] )); exit;
+        }
+    }
 
-	/**
-	 * showLogout
-     	 * add login on top of the screen
-	 */
-	final public static function showLogout() {
-		;?>
-		<form method="post" action="<?php echo str_replace( 'index.php', '', $_SERVER['PHP_SELF'] ); ?>">
-		    <input type="hidden" name="logout">
-		    <input type="submit" value="Log uit">
-		    </div> <!-- End Box -->
-		</form>
-        	<?php
-	}
+    /**
+     * showLogout
+     * add login on top of the screen
+     */
+    final public static function showLogout() {
+        ;?>
+        <form method="post" action="<?php echo str_replace( 'index.php', '', $_SERVER['PHP_SELF'] ); ?>">
+            <input type="hidden" name="logout">
+            <input type="submit" value="Log uit">
+            </div> <!-- End Box -->
+        </form>
+        <?php
+    }
 
 }
 
